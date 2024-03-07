@@ -2,6 +2,7 @@ import pandas as pd
 import numpy as np
 from faker import Faker
 from datetime import datetime, timedelta
+
 np.random.seed(42)
 fake = Faker()
 num_users = 1000
@@ -20,9 +21,15 @@ data = {
     'disney_watch_time': np.random.randint(10, 100, size=num_users),
     'spotify_watch_time': np.random.randint(10, 100, size=num_users),
     'appleMusic_watch_time': np.random.randint(10, 100, size=num_users),
-    'preferred_genre': np.random.choice(['Action', 'Drama', 'Comedy', 'Documentary','Sci-Fi','Horror','Romance',], size=num_users),
+    'preferred_genre': np.random.choice(['Action', 'Drama', 'Comedy', 'Documentary', 'Sci-Fi', 'Horror', 'Romance'], size=num_users),
     #'churn_label': np.random.choice([0, 1], size=num_users)
 }
+
+
+data['user_name'] = [fake.user_name() for _ in range(num_users)]
+
+# Add a new column for user email address
+data['user_email'] = [fake.user_name() + '@gmail.com' for _ in range(num_users)]
 
 df = pd.DataFrame(data)
 df.to_csv('your_data.csv', index=False)
